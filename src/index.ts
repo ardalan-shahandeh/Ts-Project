@@ -179,3 +179,34 @@ console.log(customer?.birthday?.getFullYear);
 
 
 //optional call operator
+// dar sourati log ejra mishe ke vaghean ye function bashe va syntax aan be sourate zir mibashad log?.('a') 
+
+let log: any = null
+
+log?.('a')
+
+
+
+// nullish qualising operator
+
+
+let speed: number | null = null;
+
+let ride = {
+    speed: speed ?? 30
+  // speed: speed || 30
+}
+
+
+//
+
+let phone = document.getElementById('phone') as HTMLInputElement
+
+phone.value
+
+// intance of
+ function renders(document: any) {
+  console.log(document);
+ }
+
+ //

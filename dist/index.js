@@ -1,33 +1,17 @@
 "use strict";
-let sales = 123456789;
-let course = 'TypeScript';
-let is_published = true;
-let level;
-function render(document) {
-    console.log(document);
-}
-let numbers = [1, 2, 3, 4];
-let user = [30, 'Ardalan'];
-var Size;
-(function (Size) {
-    Size["Small"] = "s";
-    Size["Medium"] = "m";
-    Size["Large"] = "l";
-})(Size || (Size = {}));
-let mySize = Size.Medium;
-function calculatingTax(income, taxYear) {
-    if (taxYear < 5000) {
-        return income * 1.2;
+class Account {
+    constructor(id, name, balance) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
     }
-    return income * 1.3;
-}
-console.log(calculatingTax(10000, 2022));
-let employee = {
-    id: 1,
-    name: '',
-    retire: (date) => {
-        console.log(date);
+    deposit(amount) {
+        if (amount <= 0)
+            throw new Error('invalid amount');
+        this.balance += amount;
     }
-};
-employee.name = 'mohammad';
+}
+let account = new Account(1, 'mohammad', 0);
+account.deposit(400);
+console.log(account);
 //# sourceMappingURL=index.js.map

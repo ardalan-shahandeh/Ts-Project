@@ -1,38 +1,114 @@
-class Account {
-  readonly id: number;
-  name: string;
-  nickName?: string;
-  private _balance: number;
-
-  constructor(id: number, name: string, balance: number) {
-    this.id = id;
-    this.name = name;
-    this._balance = balance;
+class Ride {
+  private static _activeRides: number = 0;
+  start() {
+    Ride._activeRides++;
+  }
+  stop() {
+    Ride._activeRides--;
   }
 
-  deposit(amount: number): void {
-    if (amount <= 0) throw new Error("invalid amount");
-    this._balance += amount;
+  static get activeRides() {
+    return Ride._activeRides;
   }
-
-  get balance(): number {
-    return this._balance;
-  }
-
-  set balance(value: number) {
-    if (value < 0) throw new Error("invalid value");
-
-    this._balance = value;
-  }
-
-  private calculateTax() {}
 }
 
-let account = new Account(1, "mohammad", 0);
+let ride1 = new Ride();
+ride1.start();
 
-console.log(account.balance);
-account.balance = 1;
+let ride2 = new Ride();
+ride2.start();
 
-//////////////////////////
-//// access modifire ////
-//public / private / protected
+console.log(Ride.activeRides);
+
+// inherited ** verasat
+// be classi ke azash ers bari mishe migan parent
+// parent/ super
+//child/derived/sub
+
+class Person {
+  constructor(public firstName: string, public lastName: string) {}
+
+  walk() {
+    console.log("Walking");
+  }
+
+  get fullName() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+class Student extends Person {
+  constructor(public studentId: number, firstName: string, lastName: string) {
+    super(firstName, lastName);
+  }
+
+  takeTest() {
+    console.log("taking a test");
+  }
+}
+
+let student = new Student(1, "mohammad", "seyedAghae");
+// console.log(student.takeTest());
+
+///// methdo overRiding
+
+//override
+
+class Teacher extends Person {
+  override get fullName(): string {
+    return "professor" + " " + super.fullName;
+  }
+}
+
+let teacher = new Teacher("ardalan", "shahandeh");
+
+console.log(teacher.fullName);
+
+// polly morphism
+
+function printNames(people: Person[]) {
+  for (let person of people) {
+    console.log(person.fullName);
+  }
+}
+
+printNames([
+  new Student(1, "ali", "gowjei"),
+  new Teacher("mohammad", "khiari"),
+]);
+
+//
+
+abstract class Shape {
+  constructor(public color: string) {}
+  render() {}
+}
+
+class Circle extends Shape {
+  constructor(public radius: number, color: string) {
+    super(color);
+  }
+
+  override render(): void {
+    console.log("Rendering a circle ...");
+  }
+}
+
+// let shape = new Shape("red");
+// shape.render();
+
+/////////////####  interface
+
+// abstract class Calendar {
+//   constructor(public name: string) {}
+
+//   abstract addEvent(): void;
+
+//   abstract removeEvent(): void;
+// }
+
+interface Calendar {
+  name: string;
+  addEvent(): void;
+  removeEvent(): void;
+}

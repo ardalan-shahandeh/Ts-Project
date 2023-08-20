@@ -102,7 +102,7 @@ class Circle extends Shape {
 // abstract class Calendar {
 //   constructor(public name: string) {}
 
-//   abstract addEvent(): void;
+//   absstringPairtract addEvent(): void;
 
 //   abstract removeEvent(): void;
 // }
@@ -111,4 +111,122 @@ interface Calendar {
   name: string;
   addEvent(): void;
   removeEvent(): void;
+}
+
+//without generic
+//
+
+class keyValuePair1 {
+  constructor(public key: number, public value: string) {}
+}
+
+class stringKeyValuePair1 {
+  constructor(public key: string, public value: string) {}
+}
+
+let pair1 = new keyValuePair1(1, "Apple");
+
+let stringPair = new stringKeyValuePair1("1", "Apple");
+
+// with generic
+
+class keyValuePair<N, S> {
+  constructor(public key: N, public value: S) {}
+}
+
+let pair = new keyValuePair<number, string>(1, "mohammad");
+
+// generic function
+
+function wrapInArray1(value: number) {
+  return [value];
+}
+
+let numbers1 = wrapInArray1(1);
+
+// generic function 1
+
+function wrapInArray<T>(value: T) {
+  return [value];
+}
+
+let numbers = wrapInArray<string>("1");
+
+/////////////////////////////////////////////
+
+interface Result<T> {
+  data: T | null;
+  error: string | null;
+}
+
+interface User {
+  userName: string;
+}
+
+interface Product {
+  title: string;
+}
+
+function fetch<T>(url: string): Result<T> {
+  return { data: null, error: null };
+}
+
+fetch<User>("url");
+
+//////////////////////////////////////////////
+
+// function echo<T extends number | string>(value: T): T {
+//   return value;
+// }
+
+// echo(1);
+
+class Persons {
+  constructor(public name: string) {}
+}
+
+class Customer extends Persons {}
+
+function echo<T extends Persons>(value: T): T {
+  return value;
+}
+
+echo(new Customer("123"));
+
+////////////////////////////
+
+interface Product {
+  name: string;
+  price: number;
+}
+
+class Store<T> {
+  private _objects: T[] = [];
+  add(obj: T): void {
+    this._objects.push(obj);
+  }
+}
+
+class CompressibleStore<T> extends Store<T> {
+  compress() {}
+}
+
+let store = new CompressibleStore<Product>();
+
+// store.add
+
+// type mapping
+
+interface Products {
+  name: string;
+  price: number;
+}
+
+type ReadOnly = {
+  readonly [K in keyof Products]: Products[K];
+};
+
+let customProduct: ReadOnly = {
+  name: 'a',
+  price: 2
 }
